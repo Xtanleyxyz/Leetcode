@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int climbStairs(int n) {
+        int count = 0;
+        vector<long long> fibonacci = {1, 2};
+        while (fibonacci.size() < n + 1) {
+            fibonacci.push_back(fibonacci[count] + fibonacci[count + 1]);
+            count++;
+        }
+        return fibonacci[count];
+    }
+};

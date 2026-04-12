@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        
+        if (n == 1) {
+            return nums[0];
+        }
+        
+        if (n == 2) {
+            return max(nums[0], nums[1]);
+        }
+        
+        vector<int> profit (1, nums[0]);
+        
+        for (int i = 1; i < n; i++) {
+            if (i == 1 && nums[i] > profit[0]) {
+                profit.push_back(nums[i]);
+            }
+            if (i == 1 && nums[i] <= profit[0]) {
+                profit.push_back(profit[0]);
+            }
+            
+            if (i >= 2) {
+                if (profit[i - 2] + nums[i] > profit[i - 1]) {
+                    profit.push_back(profit[i - 2] + nums[i]);
+                } else {
+                    profit.push_back(profit[i - 1]);
+                }
+            }
+        }
+        
+        return profit[n-1];
+        
+    }
+};

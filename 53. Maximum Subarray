@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        
+        if (n == 1) {
+            return nums[0];
+        }
+        
+        vector<int> prefixSum(n);
+        vector<int> prefixSum_small(n);
+        
+        prefixSum[0] = nums[0];
+        prefixSum_small[0] = 0;
+        
+        int sum = prefixSum[0];
+        
+        for (int i = 1; i < n; i++) {
+            prefixSum[i] = prefixSum[i - 1] + nums[i];
+            
+            if (prefixSum[i - 1] < prefixSum_small[i - 1]) {
+                prefixSum_small[i] = prefixSum[i - 1];
+            } else {
+                prefixSum_small[i] = prefixSum_small[i - 1];
+            }
+            
+            if (prefixSum[i] - prefixSum_small[i] > sum) {
+                sum = prefixSum[i] - prefixSum_small[i];
+            }
+            
+        }
+        
+        return sum;
+        
+    }

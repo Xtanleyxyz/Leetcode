@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> solution;
+        
+        int min = 0, used = -1;
+        
+        if (nums1.size() < nums2.size()) {
+            min = nums1.size();
+        } else {
+            min = nums2.size();
+        }
+        
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+        
+        for (int i = 0; i < min; i++) {
+            if (min == nums1.size()) {
+                for (int j = 0; j < nums2.size(); j++) {
+                    if (nums1[i] == nums2[j] && used < j) {
+                        solution.push_back(nums1[i]);
+                        used = j;
+                        break;
+                    }
+                    if (nums2[j] > nums1[i]) {
+                        break;
+                    }
+                }
+            } else {
+                for (int j = 0; j < nums1.size(); j++) {
+                    if (nums2[i] == nums1[j] && used < j) {
+                        solution.push_back(nums2[i]);
+                        used = j;
+                        break;
+                    }
+                    if (nums1[j] > nums2[i]) {
+                        break;
+                    }
+                }
+            }
+        }
+        
+        return solution;
+    }

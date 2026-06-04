@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        vector<int> solution;
+        solution = digits;
+        
+        int length = solution.size();
+        
+        if (solution[length - 1] != 9) {
+            solution[length - 1] = solution[length - 1] + 1;
+            return solution;
+        }
+        
+        for (int i = length - 1; i >= 0; i--) {
+            if (i == 0 && solution[i] == 9) {
+                solution[i] = 0;
+                solution.insert(solution.begin(), 1);
+                break;
+            }
+            if (solution[i] != 9) {
+                solution [i] = solution[i] + 1;
+                break;
+            }
+            
+            if (solution[i] == 9) {
+                solution[i] = 0;
+            }
+        }
+        
+        return solution;
+    }
+};

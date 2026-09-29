@@ -1,0 +1,31 @@
+class Solution:
+    def longestOnes(self, nums: list[int], k: int) -> int:
+        current_count, max_count, left, count = 0, 0, 0, 0
+        my_list = []
+        current_index = 0
+
+    
+        for right in range(len(nums)):
+            if (nums[right] == 1):
+                current_count += 1
+
+            if (nums[right] == 0 and count == k):
+                my_list.append(right)
+                if (current_count >= max_count):
+                    max_count = current_count
+                
+                left = my_list[current_index] + 1
+                current_index += 1
+                current_count = my_list[-1] - my_list[current_index - 1]
+
+            if (nums[right] == 0 and not my_list):
+                my_list.append(right)
+                left = my_list[0]
+                count += 1
+                current_count += 1
+            elif (nums[right] == 0 and count < k):
+                my_list.append(right)
+                count += 1
+                current_count += 1
+
+        return max(max_count, current_count)
